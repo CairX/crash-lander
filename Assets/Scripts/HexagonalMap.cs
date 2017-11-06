@@ -13,6 +13,7 @@ public class HexagonalMap : MonoBehaviour {
 	public float TileWidth;
 	public float TileHeight;
 
+	private List<HexagonalTile> Tiles = new List<HexagonalTile>();
 
 	private static readonly Vector2[] Directions = new Vector2[] {
 		new Vector2(1, 0),
@@ -51,6 +52,12 @@ public class HexagonalMap : MonoBehaviour {
 	private void GenerateCenter() {
 		var center = Instantiate(Template);
 		center.transform.position = new Vector3(0, 0, Template.transform.position.z);
+
+		var hexa = center.GetComponent<HexagonalTile>();
+		hexa.Coordinates = Vector2.zero;
+		hexa.Circle = Vector2.zero;
+
+		Tiles.Add(hexa);
 	}
 
 	private void GenerateCircle(uint circle) {
@@ -64,9 +71,26 @@ public class HexagonalMap : MonoBehaviour {
 
 			for (var i = 0; i < circle; i++) {
 				var tile = Instantiate(Template);
-				var position = Translate(Directions[edge] * circle + offset * i);
+				var hexa = tile.GetComponent<HexagonalTile>();
+				hexa.Coordinates = Directions[edge] * circle + offset * i;
+				hexa.Circle = new Vector2(circle, edge * 6 + i);
+
+				var position = Translate(hexa.Coordinates);
 				tile.transform.position = new Vector3(position.x, position.y, Template.transform.position.z);
+
+				Tiles.Add(hexa);
 			}
 		}
+	}
+
+	public List<HexagonalTile> GetCircle(int circle) {
+		var tiles = new List<HexagonalTile>();
+		foreach (var tile in Tiles) {
+			if (tile.Circle.x == circle) {
+				tiles.Add(tile);
+			}
+			//if (tiles.Count == (circle * 6)) { break; }
+		}
+		return tiles;
 	}
 }

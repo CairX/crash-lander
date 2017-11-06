@@ -8,7 +8,7 @@ public class Controls : MonoBehaviour {
 
 	// Use this for initialization
 	private void Start () {
-		ActivePlayer = Players[0];
+		//ActivePlayer = Players[0];
 	}
 	
 	// Update is called once per frame
@@ -19,14 +19,20 @@ public class Controls : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetKeyUp(KeyCode.Alpha0)) {
+			ActivePlayer = null;
+		}
+
 		if (Input.GetMouseButtonDown(0)) {
-			/*var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
-			if (hit) {
-				//hit.transform.GetComponent<Tile>().ChangeColor();
-			}*/
 			Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			ActivePlayer.Avatar.transform.position = point.ChangeZ(ActivePlayer.Avatar.transform.position.z);
+			if (ActivePlayer == null) {
+				var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
+				if (hit) {
+					hit.transform.GetComponent<SpriteChanger>().NextSprite();
+				}
+			} else {
+				ActivePlayer.Avatar.transform.position = point.ChangeZ(ActivePlayer.Avatar.transform.position.z);
+			}
 		}
 	}
 }
