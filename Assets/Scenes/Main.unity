@@ -383,7 +383,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c560e232cd88e2499f3afc7f47bc0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 5
+  Radius: 10
   Fill: 1
   Template: {fileID: 1612224688699980, guid: 4401e9e9a3223a643aa76def73190b40, type: 2}
   TileWidth: 1.2
@@ -595,6 +595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ship: {fileID: 21300000, guid: fe832f9e6728b9144b352cdb3bc27c24, type: 3}
   Standard: {fileID: 21300000, guid: 1a4b3a739c1bb794ca794f4ba719390b, type: 3}
+  A: {fileID: 21300000, guid: b7b343ea6f561a04e8fce9b6a83af1df, type: 3}
+  B: {fileID: 21300000, guid: 0d1964ad84f010042a2cfe02bb8d5e54, type: 3}
 --- !u!1 &1980090908
 GameObject:
   m_ObjectHideFlags: 0

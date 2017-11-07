@@ -5,7 +5,7 @@ using UnityEngine;
 public class HexagonalMap : MonoBehaviour {
 
 	[Header("Map")]
-	public uint Radius;
+	public int Radius;
 	public bool Fill = true;
 
 	[Header("Tile")]
@@ -15,7 +15,7 @@ public class HexagonalMap : MonoBehaviour {
 
 	private List<HexagonalTile> Tiles = new List<HexagonalTile>();
 
-	private static readonly Vector2[] Directions = new Vector2[] {
+	public static readonly Vector2[] Directions = new Vector2[] {
 		new Vector2(1, 0),
 		new Vector2(0, 1),
 		new Vector2(-1, 1),
@@ -40,7 +40,7 @@ public class HexagonalMap : MonoBehaviour {
 
 	private void Start() {
 		if (Fill && Radius > 0) {
-			for (uint circle = 0; circle < Radius; circle++) {
+			for (int circle = 0; circle < Radius; circle++) {
 				GenerateCircle(circle);
 			}
 		}
@@ -60,20 +60,20 @@ public class HexagonalMap : MonoBehaviour {
 		Tiles.Add(hexa);
 	}
 
-	private void GenerateCircle(uint circle) {
+	private void GenerateCircle(int circle) {
 		if (circle == 0) {
 			GenerateCenter();
 			return;
 		}
 
-		for (var edge = 0; edge < 6; edge++) {
+		for (var edge = 0; edge < Directions.Length; edge++) {
 			var offset = Directions[(edge + 2) % Directions.Length];
 
 			for (var i = 0; i < circle; i++) {
 				var tile = Instantiate(Template);
 				var hexa = tile.GetComponent<HexagonalTile>();
 				hexa.Coordinates = Directions[edge] * circle + offset * i;
-				hexa.Circle = new Vector2(circle, edge * 6 + i);
+				hexa.Circle = new Vector2(circle, edge * circle + i);
 
 				var position = Translate(hexa.Coordinates);
 				tile.transform.position = new Vector3(position.x, position.y, Template.transform.position.z);
@@ -89,8 +89,30 @@ public class HexagonalMap : MonoBehaviour {
 			if (tile.Circle.x == circle) {
 				tiles.Add(tile);
 			}
-			//if (tiles.Count == (circle * 6)) { break; }
+			if (tiles.Count == (Directions.Length * circle * circle)) { break; }
 		}
 		return tiles;
+	}
+
+	public int Count {
+		get { return Tiles.Count; }
+		private set { }
+	}
+
+	public HashSet<Vector2> RandomizeLocation(int amount, HashSet<Vector2> exclude) {
+		HashSet<Vector2> loxations = new HashSet<Vector2>();
+
+		int i = 0;
+		while (i < amount) {
+			var circleX = Random.Range(0, Radius);
+			var circleY = Random.Range(0, circleX * Directions.Length);
+			var circle = new Vector2(circleX, circleY);
+			if (!loxations.Contains(circle) && !exclude.Contains(circle)) {
+				loxations.Add(circle);
+				i++;
+			}
+		}
+
+		return loxations;
 	}
 }
