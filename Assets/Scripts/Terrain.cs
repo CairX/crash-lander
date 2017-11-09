@@ -34,5 +34,8 @@ public class Terrain : MonoBehaviour {
 				tile.gameObject.GetComponent<Sprites>().AppendSprite(Standard);
 			}
 		}
+
+		Debug.Log(Map.Count);
+		Debug.Log(amount);
 	}
 }

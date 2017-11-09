@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Sprites : MonoBehaviour {
+public class ImageToggle : MonoBehaviour {
 
 	public Sprite[] Collection;
-	private SpriteRenderer Renderer;
+	private Image Renderer;
 	private int Current;
 
 	private void Start() {
-		Renderer = GetComponent<SpriteRenderer>();
+		Renderer = GetComponent<Image>();
 		InsertSprite(0, Renderer.sprite);
 		Renderer.sprite = Collection[0];
 	}

@@ -8,6 +8,10 @@ public class Controls : MonoBehaviour {
 	private void Start () {
 		ActivePlayer = Players[0];
 	}
+
+	public void SetPlayer(int index) {
+		ActivePlayer = Players[index];
+	}
 	
 	private void Update () {
 		foreach (var player in Players) {
@@ -16,15 +20,12 @@ public class Controls : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(1)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
-			if (hit) {
-				hit.transform.GetComponent<Sprites>().NextSprite();
-			}
+			ActivePlayer.Avatar.transform.position = point.ChangeZ(ActivePlayer.Avatar.transform.position.z);
 		}
 
-		if (Input.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(0)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
 			if (hit) {

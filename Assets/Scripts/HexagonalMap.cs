@@ -115,4 +115,13 @@ public class HexagonalMap : MonoBehaviour {
 
 		return loxations;
 	}
+
+	public void Reveal() {
+		foreach (var tile in Tiles) {
+			var sprites = tile.GetComponent<Sprites>();
+			if (sprites.IsFirst()) {
+				sprites.NextSprite();
+			}
+		}
+	}
 }
