@@ -100,20 +100,20 @@ public class HexagonalMap : MonoBehaviour {
 	}
 
 	public HashSet<Vector2> RandomizeLocation(int amount, HashSet<Vector2> exclude) {
-		HashSet<Vector2> loxations = new HashSet<Vector2>();
+		HashSet<Vector2> locations = new HashSet<Vector2>();
 
 		int i = 0;
 		while (i < amount) {
 			var circleX = Random.Range(0, Radius);
 			var circleY = Random.Range(0, circleX * Directions.Length);
 			var circle = new Vector2(circleX, circleY);
-			if (!loxations.Contains(circle) && !exclude.Contains(circle)) {
-				loxations.Add(circle);
+			if (!locations.Contains(circle) && !exclude.Contains(circle)) {
+				locations.Add(circle);
 				i++;
 			}
 		}
 
-		return loxations;
+		return locations;
 	}
 
 	public void Reveal() {
