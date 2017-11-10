@@ -15,23 +15,35 @@ public class Terrain : MonoBehaviour {
 		Map.GetCircle(0)[0].GetComponent<SpriteRenderer>().sprite = Standard;
 
 		var amount = (int)(Map.Count * 0.05f);
-		var a = Map.RandomizeLocation(amount, new HashSet<Vector2>());
-		var b = Map.RandomizeLocation(amount, a);
+		var exclude = new HashSet<Vector2>(new Vector2[] { Vector2.zero });
+
+		var a = Map.RandomizeLocation(amount, exclude);
+		exclude.UnionWith(a);
+
+		var b = Map.RandomizeLocation(amount, exclude);
+		exclude.UnionWith(b);
 
 		foreach (var pos in a) {
 			var tile = Map.GetCircle(((int)pos.x))[((int)pos.y)];
 			tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
+			tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
 		}
 
 		foreach (var pos in b) {
 			var tile = Map.GetCircle(((int)pos.x))[((int)pos.y)];
 			tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
+			tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
 		}
 
 		for (int circle = 1; circle < Map.Radius; circle++) {
 			var tiles = Map.GetCircle(circle);
 			foreach (var tile in tiles) {
 				tile.gameObject.GetComponent<Sprites>().AppendSprite(Standard);
+
+				if (exclude.Contains(tile.Circle)) { continue; }
+
+				tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
+				tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
 			}
 		}
 
