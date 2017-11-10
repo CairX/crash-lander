@@ -20,12 +20,20 @@ public class Controls : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(0)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			ActivePlayer.Avatar.transform.position = point.ChangeZ(ActivePlayer.Avatar.transform.position.z);
+
+			var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
+			if (hit) {
+				var sprites = hit.transform.GetComponent<Sprites>();
+				if (sprites.IsFirst()) {
+					sprites.NextSprite();
+				}
+				ActivePlayer.Avatar.transform.position = point.ChangeZ(ActivePlayer.Avatar.transform.position.z);
+			}
 		}
 
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(1)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			var hit = Physics2D.Raycast(point, Vector2.zero, 0f);
 			if (hit) {
