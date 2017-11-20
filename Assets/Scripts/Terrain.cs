@@ -17,10 +17,10 @@ public class Terrain : MonoBehaviour {
 		var amount = (int)(Map.Count * 0.05f);
 		var exclude = new HashSet<Vector2>(new Vector2[] { Vector2.zero });
 
-		var a = Map.RandomizeLocation(amount, exclude);
+		var a = Map.GetRandomLocations(amount, exclude);
 		exclude.UnionWith(a);
 
-		var b = Map.RandomizeLocation(amount, exclude);
+		var b = Map.GetRandomLocations(amount, exclude);
 		exclude.UnionWith(b);
 
 		foreach (var pos in a) {

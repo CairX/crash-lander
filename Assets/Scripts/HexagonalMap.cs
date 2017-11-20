@@ -99,7 +99,7 @@ public class HexagonalMap : MonoBehaviour {
 		private set { }
 	}
 
-	public HashSet<Vector2> RandomizeLocation(int amount, HashSet<Vector2> exclude) {
+	public HashSet<Vector2> GetRandomLocations(int amount, HashSet<Vector2> exclude) {
 		HashSet<Vector2> locations = new HashSet<Vector2>();
 
 		int i = 0;
