@@ -5,13 +5,14 @@ using UnityEngine;
 public class Sprites : MonoBehaviour {
 
 	public Sprite[] Collection;
+
 	private SpriteRenderer Renderer;
 	private int Current;
 
 	private void Start() {
 		Renderer = GetComponent<SpriteRenderer>();
 		InsertSprite(0, Renderer.sprite);
-		Renderer.sprite = Collection[0];
+		FirstSprite();
 	}
 
 	public void SetSprite(int index) {
