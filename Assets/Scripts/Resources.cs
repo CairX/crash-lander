@@ -12,7 +12,7 @@ public class Resources : MonoBehaviour {
 
 	private void Start () {
 		Map = GetComponent<HexagonalMap>();
-		Map.GetCircle(0)[0].GetComponent<SpriteRenderer>().sprite = Standard;
+		Map.GetCircle(0)[0].GetComponent<Sprites>().ReplaceSprite(0, Standard);
 
 		var amount = (int)(Map.Count * 0.05f);
 		var exclude = new HashSet<Vector2>(new Vector2[] { Vector2.zero });
@@ -23,27 +23,19 @@ public class Resources : MonoBehaviour {
 		var b = Map.GetRandomLocations(amount, exclude);
 		exclude.UnionWith(b);
 
-		foreach (var pos in a) {
-			var tile = Map.GetCircle(((int)pos.x))[((int)pos.y)];
-			tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
-			tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
-		}
+		foreach (var tile in Map.GetTiles()) {
+			var sprites = tile.gameObject.GetComponent<Sprites>();
+			sprites.AppendSprite(Standard);
 
-		foreach (var pos in b) {
-			var tile = Map.GetCircle(((int)pos.x))[((int)pos.y)];
-			tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
-			tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
-		}
-
-		for (int circle = 1; circle < Map.Radius; circle++) {
-			var tiles = Map.GetCircle(circle);
-			foreach (var tile in tiles) {
-				tile.gameObject.GetComponent<Sprites>().AppendSprite(Standard);
-
-				if (exclude.Contains(tile.Circle)) { continue; }
-
-				tile.gameObject.GetComponent<Sprites>().AppendSprite(A);
-				tile.gameObject.GetComponent<Sprites>().AppendSprite(B);
+			if (a.Contains(tile.Circle)) {
+				sprites.InsertSprite(1, A);
+				sprites.InsertSprite(2, B);
+			} else if (b.Contains(tile.Circle)) {
+				sprites.InsertSprite(1, B);
+				sprites.InsertSprite(2, A);
+			} else {
+				sprites.AppendSprite(A);
+				sprites.AppendSprite(B);
 			}
 		}
 	}

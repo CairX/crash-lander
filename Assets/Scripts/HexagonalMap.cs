@@ -94,6 +94,10 @@ public class HexagonalMap : MonoBehaviour {
 		return tiles;
 	}
 
+	public List<HexagonalTile> GetTiles() {
+		return Tiles;
+	}
+
 	public int Count {
 		get { return Tiles.Count; }
 		private set { }
