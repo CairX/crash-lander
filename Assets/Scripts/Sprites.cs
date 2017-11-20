@@ -47,6 +47,10 @@ public class Sprites : MonoBehaviour {
 		InsertSprite(Collection.Length, sprite);
 	}
 
+	public void ReplaceSprite(int index, Sprite sprite) {
+		Collection[index % Collection.Length] = sprite;
+	}
+
 	public bool IsFirst() {
 		return (Current == 0);
 	}
