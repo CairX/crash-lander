@@ -14,9 +14,21 @@ public class Sprites : MonoBehaviour {
 		Renderer.sprite = Collection[0];
 	}
 
-	public void NextSprite() {
-		Current = ((Current + 1) % Collection.Length);
+	public void SetSprite(int index) {
+		Current = index % Collection.Length;
 		Renderer.sprite = Collection[Current];
+	}
+
+	public void NextSprite() {
+		SetSprite(Current + 1);
+	}
+
+	public void FirstSprite() {
+		SetSprite(0);
+	}
+
+	public void LastSprite() {
+		SetSprite(Collection.Length - 1);
 	}
 
 	public void InsertSprite(int index, Sprite sprite) {
