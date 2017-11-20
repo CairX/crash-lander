@@ -9,9 +9,14 @@ public class Sprites : MonoBehaviour {
 	private SpriteRenderer Renderer;
 	private int Current;
 
-	private void Start() {
+	private void Awake() {
 		Renderer = GetComponent<SpriteRenderer>();
-		InsertSprite(0, Renderer.sprite);
+		if (Collection.Length == 0) {
+			AppendSprite(Renderer.sprite);
+		}
+	}
+
+	private void Start() {
 		FirstSprite();
 	}
 
