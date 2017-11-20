@@ -124,4 +124,9 @@ public class HexagonalMap : MonoBehaviour {
 			}
 		}
 	}
+	public void Hide() {
+		foreach (var tile in Tiles) {
+			tile.GetComponent<Sprites>().FirstSprite();
+		}
+	}
 }
