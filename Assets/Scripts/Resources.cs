@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Terrain : MonoBehaviour {
+public class Resources : MonoBehaviour {
 
 	public Sprite Ship;
 	public Sprite Standard;
